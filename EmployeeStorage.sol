@@ -2,9 +2,9 @@
 pragma solidity ^0.8.17;
 
 contract EmployeeStorage {
-    uint32 private shares;
-    string public name;
-    uint32 private salary;
+    uint16 private shares;
+    uint24 private salary;
+    string public name;    
     uint256 public idNumber;
 
     constructor() {
@@ -18,17 +18,17 @@ contract EmployeeStorage {
         return salary;
     }
 
-    function viewShares() public view returns(uint32 sh){
+    function viewShares() public view returns(uint16 sh){
         return shares;
     }
 
-    error TooManyShares(uint32 resultShares);
-    function grantShares(uint32 _newShares) public {
+    error TooManyShares(uint24 resultShares);
+    function grantShares(uint16 _newShares) public {
         if(_newShares > 5000) {
             revert("Too many shares");
         }
 
-        uint32 tempShares = shares + _newShares;
+        uint16 tempShares = shares + _newShares;
 
         if(tempShares > 5000) {
             revert TooManyShares(tempShares);
