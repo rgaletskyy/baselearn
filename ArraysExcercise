@@ -49,8 +49,8 @@ contract ArraysExercise {
     }
 
     function resetNumbers() public {
-        uint[] memory resetArray = new uint [](9);
-        for(uint8 i = 0; i < 9; i++) {
+        uint[] memory resetArray = new uint [](10);
+        for(uint8 i = 0; i < 10; i++) {
             resetArray[i] = i+1;
         }
 
@@ -63,5 +63,4 @@ contract ArraysExercise {
         }
     }
 }
-
 
