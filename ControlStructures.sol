@@ -18,15 +18,18 @@ contract ControlStructures {
 
     error AfterHours(uint errorTime);
     function doNotDisturb(uint _time) external pure returns (string memory){
-        if(_time >= 2400){
-            revert();
+        if(_time >= 2400)
+        {
+            assert(false);
         }
-        else if(_time > 2200 || _time < 800)
+
+        if(_time > 2200 || _time < 800)
         {
             revert AfterHours(_time);
         }
-        else if(_time >= 1200 && _time <= 1259) {
-            return "At lunch!";
+
+        if(_time >= 1200 && _time <= 1259) {
+            revert("At lunch!");
         }
         else if(_time >= 800 && _time <= 1199) {
             return "Morning!";
