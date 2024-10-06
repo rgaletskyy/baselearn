@@ -1,55 +1,78 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.23;
+pragma solidity ^0.8.17;
 
-contract GarageManager{
-    struct Car {        
-        string make;
-        string model;
-        string color;
-        uint8 numberOfDoors;       
+/**
+ * @title GarageManager
+ * @dev Contract to manage a garage of cars for each user
+ */
+contract GarageManager {
+    // Mapping to store the garage of cars for each user
+    mapping(address => Car[]) private garages;
+
+    // Struct to represent a car
+    struct Car {
+        string make; // Make of the car
+        string model; // Model of the car
+        string color; // Color of the car
+        uint numberOfDoors; // Number of doors of the car
     }
 
-    mapping (address => Car[]) public garage;
+    // Custom error for handling invalid car index
+    error BadCarIndex(uint256 index);
 
-    error BadCarIndex(uint index);
-
-    // Function to add a car to the user's collection in the garage
-    function addCar(string calldata _make, string calldata _model, string calldata _color, uint8 _numberOfDoors) external {
-        // Create a new car and push it to the user's garage
-        Car memory newCar = Car({
-            make: _make,
-            model: _model,
-            color: _color,
-            numberOfDoors: _numberOfDoors
-        });
-
-        garage[msg.sender].push(newCar);
+    /**
+     * @dev Adds a new car to the caller's garage
+     * @param _make The make of the car
+     * @param _model The model of the car
+     * @param _color The color of the car
+     * @param _numberOfDoors The number of doors of the car
+     */
+    function addCar(string memory _make, string memory _model, string memory _color, uint _numberOfDoors) external {
+        // Push a new car struct with the provided details to the caller's garage
+        garages[msg.sender].push(Car(_make, _model, _color, _numberOfDoors));
     }
 
-    // Function to update a car's details for the calling user
-    function updateCar(uint _index, string calldata _make, string calldata _model, string calldata _color, uint8 _numberOfDoors) external {
-        // Check if the car exists for the calling user
-        if (_index >= garage[msg.sender].length) {
-            revert BadCarIndex(_index);
-        }
-
-        // Update the car at the given index
-        Car storage carToUpdate = garage[msg.sender][_index];
-        carToUpdate.make = _make;
-        carToUpdate.model = _model;
-        carToUpdate.color = _color;
-        carToUpdate.numberOfDoors = _numberOfDoors;
-    }
-
-    /*function getUserCars(address _user) external view returns (Car[] memory) {
-        return garage[_user];
-    }*/
-
+    /**
+     * @dev Retrieves the caller's array of cars
+     * @return An array of `Car` structs
+     */
     function getMyCars() external view returns (Car[] memory) {
-        return garage[msg.sender];
-    }         
+        // Return the array of cars stored in the caller's garage
+        return garages[msg.sender];
+    }
 
+    /**
+     * @dev Retrieves a specific user's array of cars
+     * @param _user The address of the user
+     * @return An array of `Car` structs
+     */
+    function getUserCars(address _user) external view returns (Car[] memory) {
+        // Return the array of cars stored in the garage of the specified user
+        return garages[_user];
+    }
+
+    /**
+     * @dev Updates a specific car in the caller's garage
+     * @param _index The index of the car in the garage array
+     * @param _make The new make of the car
+     * @param _model The new model of the car
+     * @param _color The new color of the car
+     * @param _numberOfDoors The new number of doors of the car
+     */
+    function updateCar(uint256 _index, string memory _make, string memory _model, string memory _color, uint _numberOfDoors) external {
+        // Check if the provided index is valid
+        if (_index >= garages[msg.sender].length) {
+            revert BadCarIndex({index: _index}); // Revert with custom error if the index is invalid
+        }
+        // Update the specified car with the new details
+        garages[msg.sender][_index] = Car(_make, _model, _color, _numberOfDoors);
+    }
+
+    /**
+     * @dev Deletes all cars in the caller's garage
+     */
     function resetMyGarage() external {
-        delete garage[msg.sender];
+        // Delete all cars from the caller's garage
+        delete garages[msg.sender];
     }
 }
