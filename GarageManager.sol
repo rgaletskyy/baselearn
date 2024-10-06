@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.23;
 
 contract GarageManager{
     struct Car {        
@@ -26,15 +26,6 @@ contract GarageManager{
         garage[msg.sender].push(newCar);
     }
 
-    function getMyCars() external view returns (Car[] memory) {
-        return garage[msg.sender];
-    }
-
-    function getUserCars(address _user) external view returns (Car[] memory) {
-        return garage[_user];
-    }
-
-    
     // Function to update a car's details for the calling user
     function updateCar(uint _index, string calldata _make, string calldata _model, string calldata _color, uint8 _numberOfDoors) external {
         // Check if the car exists for the calling user
@@ -50,8 +41,15 @@ contract GarageManager{
         carToUpdate.numberOfDoors = _numberOfDoors;
     }
 
+    /*function getUserCars(address _user) external view returns (Car[] memory) {
+        return garage[_user];
+    }*/
+
+    function getMyCars() external view returns (Car[] memory) {
+        return garage[msg.sender];
+    }         
+
     function resetMyGarage() external {
         delete garage[msg.sender];
     }
-
 }
