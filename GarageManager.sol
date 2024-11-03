@@ -14,7 +14,7 @@ contract GarageManager {
         string make; // Make of the car
         string model; // Model of the car
         string color; // Color of the car
-        uint numberOfDoors; // Number of doors of the car
+        uint numberOfDoors; // Number of door
     }
 
     // Custom error for handling invalid car index
