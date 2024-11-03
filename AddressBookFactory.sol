@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.8;
 
-// Import the AddressBook contract to interact with it
+// Import the AddressBook contract
 import "./AddressBook.sol";
 
 // Contract for creating new instances of AddressBook
