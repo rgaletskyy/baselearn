@@ -16,6 +16,7 @@ contract AddressBookFactory {
 
         // Transfer ownership of the new AddressBook contract to the caller of this function
         newAddressBook.transferOwnership(msg.sender);
+        // New comment
 
         // Return the newly created AddressBook contract
         return newAddressBook;
