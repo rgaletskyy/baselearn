@@ -6,6 +6,7 @@ contract UnburnableToken {
     string private salt = "value"; // A private string variable
 
     // Mapping to track token balances of addresses
+    // Add more comment
     mapping(address => uint256) public balances;
 
     uint256 public totalSupply; // Total supply of tokens
