@@ -7,6 +7,7 @@ contract ErrorTriageExercise {
      * @dev Finds the difference between each uint with its neighbor (a to b, b to c, etc.)
      * and returns a uint array with the absolute integer difference of each pairing.
      * 
+     * do not add extra params here
      * @param _a The first unsigned integer.
      * @param _b The second unsigned integer.
      * @param _c The third unsigned integer.
