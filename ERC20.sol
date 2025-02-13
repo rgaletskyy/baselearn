@@ -17,6 +17,7 @@ contract WeightedVoting is ERC20 {
     error QuorumTooHigh(); // Error for setting a quorum higher than total supply
     error AlreadyVoted(); // Error for attempting to vote more than once
     error VotingClosed(); // Error for attempting to vote on a closed issue
+    error VotingDelayedError(); // custom error
 
     // Struct to represent an issue
     struct Issue {
