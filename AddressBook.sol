@@ -7,7 +7,7 @@ contract AddressBook is Ownable(msg.sender) {
     // Define a private salt value for internal use
     string private salt = "value"; 
 
-    // Define a struct to represent a contact
+    // Define a struct to represent a contact. Contact contains all required fields
     struct Contact {
         uint id; // Unique identifier for the contact
         string firstName; // First name of the contact
