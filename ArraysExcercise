@@ -11,6 +11,7 @@ contract ArraysExercise {
         timestamps.push(_unixTimestamp);
     }
 
+    // filter timestamps
     function afterY2K() public returns (uint[] memory filteredTimestamps, address[] memory filteredSenders) {
         uint filteredLength = 0;               
 
